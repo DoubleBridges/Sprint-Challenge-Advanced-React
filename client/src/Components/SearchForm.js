@@ -1,9 +1,13 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
 
+import {useForm} from '../Hooks/useForm'
+
 const SearchForm = (props) => {
 
-  const countries = new Set(props.data.map(player => player.country))
+  const [country, someFunction] = useForm('country', 'All')
+
+  const countries = new Set(props.countries.map(player => player.country))
 
   const options = [...countries].map(
     country => {
@@ -16,13 +20,27 @@ const SearchForm = (props) => {
 
   })
 
+
+  const handleChange = e => someFunction(e._dispatchInstances[0].return.key)
+
+
   return (
+    <Form>
     <Form.Select
       label='Filter Players By Country'
       options={options}
-      placeholder='All'
-      onChange={console.log(value)}
+      placeholder={country}
+      onChange={handleChange}
     />
+    <Form.Button
+      onClick={() => props.handleSubmit(country)}
+      >Submit</Form.Button>
+      <Form.Button
+      onClick={() => props.resetForm()}
+      >
+        Reset List
+      </Form.Button>
+    </Form>
   )
 }
 

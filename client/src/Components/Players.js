@@ -1,15 +1,13 @@
 import React from 'react'
 import { Card } from 'semantic-ui-react'
-import styled from 'styled-components'
 
 import PlayerCard from './PlayerCard'
 
 
 
 const Players = props => {
-  const data = props.data
 
-  const cards = data.map(player => {
+  const cards = props.list.map(player => {
     return (
       <PlayerCard
         key={player.id}

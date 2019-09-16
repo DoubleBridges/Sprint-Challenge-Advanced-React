@@ -4,12 +4,13 @@ import './App.css';
 import Players from './Components/Players';
 import SearchForm from './Components/SearchForm';
 
+
 class App extends Component {
   constructor() {
     super()
     this.state = {
       data: [],
-      list: []
+      list: JSON.parse(localStorage.getItem('filtered')) || []
     }
   }
 
@@ -17,20 +18,33 @@ class App extends Component {
     axios.get('http://localhost:5000/api/players')
       .then(res => {
         this.setState({ data: res.data })
-        this.setState({ list: res.data })
       })
       .catch(err => console.log(err))
   }
 
+  handleSubmit = (country) => {
+    localStorage.setItem('filtered', JSON.stringify(this.state.data.filter(player => player.country === country)))
+    this.setState({ list: this.state.data.filter(player => player.country === country)})
+  }
+
+  resetForm = () => {
+    localStorage.setItem('country', JSON.stringify(''))
+    localStorage.setItem('filtered', JSON.stringify([]))
+    this.setState({ list: []})
+  }
+ 
 
   render() {
     return (
       <div className="App">
         <SearchForm
-          data={this.state.data}
-          />
+          countries={this.state.data}
+          handleSubmit={this.handleSubmit}
+          resetForm={this.resetForm}
+
+        />
         <Players
-          data={this.state.list }/>
+          list={this.state.list.length === 0 ? this.state.data : this.state.list }/>
     </div>
     );
   }
