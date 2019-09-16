@@ -22,7 +22,7 @@ const SearchForm = (props) => {
 
 
   const handleChange = e => someFunction(e._dispatchInstances[0].return.key)
-
+  const formReset = () => someFunction('All')
 
   return (
     <Form>
@@ -36,7 +36,12 @@ const SearchForm = (props) => {
       onClick={() => props.handleSubmit(country)}
       >Submit</Form.Button>
       <Form.Button
-      onClick={() => props.resetForm()}
+        onClick={() => {
+          formReset()
+          props.resetForm()
+          
+          console.log(country)
+        }}
       >
         Reset List
       </Form.Button>

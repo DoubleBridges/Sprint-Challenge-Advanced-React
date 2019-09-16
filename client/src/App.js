@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   resetForm = () => {
-    localStorage.setItem('country', JSON.stringify(''))
     localStorage.setItem('filtered', JSON.stringify([]))
     this.setState({ list: []})
   }
