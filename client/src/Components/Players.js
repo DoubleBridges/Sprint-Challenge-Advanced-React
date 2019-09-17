@@ -19,7 +19,9 @@ const Players = props => {
   })
 
   return (
-    <Card.Group itemsPerRow={4}>
+    <Card.Group
+      data-testid="player-cards"
+      itemsPerRow={4}>
       {cards}
     </Card.Group>
 

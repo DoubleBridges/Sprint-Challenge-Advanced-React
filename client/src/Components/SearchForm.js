@@ -39,8 +39,6 @@ const SearchForm = (props) => {
         onClick={() => {
           formReset()
           props.resetForm()
-          
-          console.log(country)
         }}
       >
         Reset List
